@@ -20,47 +20,47 @@ export function NewsCard({ item }: NewsCardProps) {
   };
 
   const cleanContent = item.contentSnippet
-    ? item.contentSnippet.substring(0, 200) + (item.contentSnippet.length > 200 ? '...' : '')
+    ? item.contentSnippet.substring(0, 180) + (item.contentSnippet.length > 180 ? '...' : '')
     : '';
 
   return (
-    <article className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+    <article className="group bg-[var(--bg-secondary)] rounded-xl border border-[var(--border-color)] overflow-hidden hover:shadow-[var(--shadow-lifted)] transition-all duration-400 hover:-translate-y-1">
       {item.imageUrl && (
-        <div className="aspect-video relative overflow-hidden bg-gray-100">
+        <div className="aspect-[16/10] relative overflow-hidden bg-[var(--bg-accent)]">
           <img
             src={item.imageUrl}
             alt={item.title}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
       )}
-      <div className="p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs font-medium px-2 py-0.5 bg-blue-100 text-blue-800 rounded">
+      <div className="p-5">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-xs font-semibold tracking-wide uppercase px-3 py-1 bg-[var(--accent-coral)]/10 text-[var(--accent-coral)] rounded-md">
             {item.source}
           </span>
-          <time className="text-xs text-gray-500">{formattedDate()}</time>
+          <time className="text-xs text-[var(--text-muted)] font-light">{formattedDate()}</time>
         </div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+        <h2 className="text-lg font-serif font-medium text-[var(--text-primary)] mb-3 line-clamp-2 leading-snug group-hover:text-[var(--accent-navy)] transition-colors">
           <a
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-600"
           >
             {item.title}
           </a>
         </h2>
         {cleanContent && (
-          <p className="text-sm text-gray-600 mb-2 line-clamp-3">{cleanContent}</p>
+          <p className="text-sm text-[var(--text-secondary)] mb-4 line-clamp-3 font-light leading-relaxed">{cleanContent}</p>
         )}
         {item.categories && item.categories.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-2">
+          <div className="flex flex-wrap gap-1.5">
             {item.categories.slice(0, 3).map((cat, idx) => (
-              <span key={idx} className="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded">
+              <span key={idx} className="text-xs px-2 py-0.5 bg-[var(--bg-accent)] text-[var(--text-muted)] rounded">
                 {cat}
               </span>
             ))}
